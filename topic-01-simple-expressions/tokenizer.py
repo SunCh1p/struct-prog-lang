@@ -35,7 +35,9 @@ def tokenize(characters):
             "position": position,
         }
         tokens.append(token)
+        # print(position)
         position = match.end()
+        # print(len(characters))
     for token in tokens:
         if token["tag"] == "number":
             if "." in token["value"]:
@@ -46,9 +48,9 @@ def tokenize(characters):
 
 
 def test_simple_tokens():
-    print("testing simple tokens")
-    assert tokenize("+") == [{"tag": "+", "value": "+", "position": 0}]
-    assert tokenize("-") == [{"tag": "-", "value": "-", "position": 0}]
+    # print("testing simple tokens")
+    # assert tokenize("+") == [{"tag": "+", "value": "+", "position": 0}]
+    # assert tokenize("-") == [{"tag": "-", "value": "-", "position": 0}]
     i = 0
     for char in "+-*/()":
         tokens = tokenize(char)
@@ -63,6 +65,14 @@ def test_simple_tokens():
         tokens = tokenize(number)
         assert tokens[0]["tag"] == "number"
         assert tokens[0]["value"] == float(number)
+
+    testString ='+-*/()'
+    tokens = tokenize(testString)
+    for i in range(len(testString)):
+        assert tokens[i]["tag"] == testString[i]
+        assert tokens[i]["value"] == testString[i]
+        assert tokens[i]["position"] == i
+
 
 
 if __name__ == "__main__":
